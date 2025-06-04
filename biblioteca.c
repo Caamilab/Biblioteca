@@ -50,7 +50,7 @@ SemaphoreHandle_t xResetSemaphore;
 
 // Estado do botão pressionado:
 // 0 = nenhum | 1 = entrada | 2 = saída
-int evento_botao = 0;
+volatile int evento_botao = 0;
 
 // === FUNÇÕES ===
 
@@ -233,7 +233,7 @@ int main() {
     // Cria tarefas
     xTaskCreate(vEntradaTask, "Entrada", 256, NULL, 1, NULL);
     xTaskCreate(vSaidaTask,   "Saida",   256, NULL, 1, NULL);
-    xTaskCreate(vTaskReset,   "Reset",   256, NULL, 1, NULL);
+    xTaskCreate(vTaskReset,   "Reset",   256, NULL, 2, NULL);
 
     // Inicia o escalonador
     vTaskStartScheduler();
